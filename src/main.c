@@ -4,6 +4,7 @@ extern int yylex();
 
 int main(void){
     int token = yylex();
+    
     char* tokens[] = {
         "NAND_OP",
         "XOR_OP",
@@ -43,7 +44,10 @@ int main(void){
         "TRUTH_VAL",
         "FLOAT",
         "INTEGER",
-        "IDENTIFIER"
+        "IDENTIFIER",
+        "COMMENT",
+        "PROG_END",
+        "PROG_INIT",
     };
 
     while(token){

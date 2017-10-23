@@ -38,11 +38,16 @@
 #define FLOAT 185
 #define INTEGER 186
 #define IDENTIFIER 187
+#define COMMENT 188
+#define PROG_END 189
+#define PROG_INIT 190
 
 %}
 
 %%
 
+\#\#[^\n]*                      return COMMENT;
+"init"                          return PROG_INIT;
 "get"                           return STDIN_OP;
 "say"                           return STDOUT_OP;
 ((is)|(are))                    return EQUAL_OP;
@@ -53,6 +58,7 @@
 "xor"                           return XOR_OP;
 "nor"                           return NOR_OP;
 "xnor"                          return XNOR_OP;
+"and"                           return AND_OP;
 "nand"                          return NAND_OP;
 "truth"                         return TRUTH_TYPE;
 "float"                         return FLOAT_TYPE;
@@ -87,16 +93,19 @@
 \,             					return ',';
 \;             					return ';';
 \$                              return '$';
+\@\@                            return PROG_END;
 " "								return ' ';
 
-
-((true)|(false)|(un))				return BOOLEAN;
+((true)|(false)|(un))			return BOOLEAN;
 \"(\\.|[^"])*\"                 return STRING;
 \'(\\.|[^'])*\'                 return TRUTH_VAL;
 
 [-+]?[0-9]*\.[0-9]*([eE][-+]?[0-9]+)?		return FLOAT;
 [-+]?[0-9]+								    return INTEGER;
 [a-zA-Z][a-zA-Z0-9_]*						return IDENTIFIER;
-
 .                                                       ;
 %%
+
+int yywrap(void){
+  return 1;
+}

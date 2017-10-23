@@ -1,0 +1,19 @@
+init
+
+## Oh hello again. You must be a really curios visitor! (which is really cool)
+## Let's show you a really cool data structure(similar to Dictionary) we created just for Atlas.
+## We called it "Relational Logic Map" or just "rel" .
+
+rel earthTruth = [“Earth” : “Biggest Planet in the Universe”];
+
+
+if earthTruth.“Earth” $ “Biggest Planet in the Universe” {
+    get(param:string) {
+        say "I don't know this is a fact or not but you said: " + param;
+    }
+} else {
+    truth amazingTruth = ((true and false) nand true ) xor false;
+    say "This is just a random p. calculus operation" + amazingTruth;
+}
+
+@@
