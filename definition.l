@@ -45,8 +45,7 @@
 
 "get"                           return STDIN_OP;
 "say"                           return STDOUT_OP;
-"is"                            return EQUAL_OP;
-"are"                           return EQUAL_OP;
+((is)|(are))                    return EQUAL_OP;
 "pure"                          return CONST_IDENTIFIER;
 \-\>							return IF_THEN_OP;
 \<\-\> 							return IF_AND_ONLY_IF_OP;
@@ -91,7 +90,7 @@
 " "								return ' ';
 
 
-^((true)|(false))$				return BOOLEAN;
+((true)|(false)|(un))*				return BOOLEAN;
 \"(\\.|[^"])*\"                 return STRING;
 \'(\\.|[^'])*\'                 return TRUTH_VAL;
 
