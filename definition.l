@@ -90,7 +90,7 @@
 " "								return ' ';
 
 
-((true)|(false)|(un))*				return BOOLEAN;
+((true)|(false)|(un))				return BOOLEAN;
 \"(\\.|[^"])*\"                 return STRING;
 \'(\\.|[^'])*\'                 return TRUTH_VAL;
 
