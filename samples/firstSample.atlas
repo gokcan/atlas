@@ -5,7 +5,7 @@ init
 ## It is also highly inspired from Kotlin, Swift and Python.
 
 pure truth 'earth is flat' = false; ## cannot be assigned again, because you know, it is "pure".
-truth 'democracy is an illusion" = true;
+truth 'democracy is an illusion" is true; ## Yeah, you can also assign with is/are keywords.
 
 pred lieMachine(param:truth) {
 
