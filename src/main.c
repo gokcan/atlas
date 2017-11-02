@@ -48,6 +48,8 @@ int main(void){
         "COMMENT",
         "PROG_END",
         "PROG_INIT",
+        "PRED",
+        "FUNCTION",
     };
 
     while(token){

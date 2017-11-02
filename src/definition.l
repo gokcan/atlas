@@ -41,6 +41,8 @@
 #define COMMENT 188
 #define PROG_END 189
 #define PROG_INIT 190
+#define PRED 191
+#define FUNCTION 192
 
 %}
 
@@ -65,10 +67,13 @@
 "int"                           return INTEGER_TYPE;
 "string"                        return STRING_TYPE;
 "rel"                           return RELATION_TYPE;
+"not"							return NOT_OP;
 "if"                            return IF_CLAUSE;
 "else"                          return ELSE_CLAUSE;
 "as long as"                    return WHILE_STMT;
 "remains"                       return EQUALITY_CHECK_OP;
+"pred"							return PRED;
+"function"						return FUNCTION;
 \=\=                            return EQUALITY_CHECK_OP;
 \=								return EQUAL_OP;
 \!\=							return NOT_EQUAL_OP;
