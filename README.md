@@ -6,5 +6,4 @@
 git clone https://github.com/gokcan/atlas.git
 cd atlas/src
 make
-
 ```
