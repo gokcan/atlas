@@ -11,6 +11,6 @@ make
 ### Progress 
 
 - [x] __Brainstorming & Idea Generation__
-- [x] __Language Design__
+- [x] __Initial Language Design__
 - [x] __Lexical Analysis with Flex__
 
