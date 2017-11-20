@@ -99,7 +99,6 @@
 \;             					return ';';
 \$                              return '$';
 \@\@                            return PROG_END;
-" "								return ' ';
 
 ((true)|(false)|(un))			return BOOLEAN;
 \"(\\.|[^"])*\"                 return STRING;
