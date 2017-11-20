@@ -12,7 +12,7 @@
 #define BOLD_ARROW_OP 159
 #define WHILE_STMT 160
 #define AND_OP 161
-#define EQUAL_OP 162
+#define ASSIGN_OP 162
 #define MUL_OP 163
 #define DIV_OP 164
 #define REMAINDER_OP 165 
@@ -52,7 +52,7 @@
 "init"                          return PROG_INIT;
 "get"                           return STDIN_OP;
 "say"                           return STDOUT_OP;
-((is)|(are))                    return EQUAL_OP;
+((is)|(are))                    return ASSIGN_OP;
 "pure"                          return CONST_IDENTIFIER;
 \-\>							return IF_THEN_OP;
 \<\-\> 							return IF_AND_ONLY_IF_OP;
@@ -75,7 +75,7 @@
 "pred"							return PRED;
 "function"						return FUNCTION;
 \=\=                            return EQUALITY_CHECK_OP;
-\=								return EQUAL_OP;
+\=								return ASSIGN_OP;
 \!\=							return NOT_EQUAL_OP;
 \*								return MUL_OP;
 \/								return DIV_OP;
