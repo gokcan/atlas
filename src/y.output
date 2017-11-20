@@ -1,0 +1,1974 @@
+Terminals which are not used
+
+   BOLD_ARROW_OP
+   COMMENT
+
+
+State 15 conflicts: 10 shift/reduce
+State 75 conflicts: 8 shift/reduce
+State 80 conflicts: 12 reduce/reduce
+State 98 conflicts: 8 shift/reduce
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: PROG_INIT Block PROG_END
+
+    2 Block: Statements Block
+    3      | Statements
+
+    4 Statements: Stmt
+    5           | Stmt Statements
+
+    6 Stmt: Function
+    7     | Pred
+    8     | Other
+
+    9 Other: FunctionCall
+   10      | While
+   11      | Conditional
+   12      | Assignment
+   13      | Declaration
+   14      | RelationStatement
+   15      | Std
+
+   16 Declaration: TypeModifier Type IDENTIFIER Semicolon
+
+   17 Assignment: TypeModifier Type IDENTIFIER ASSIGN_OP AssignmentTail
+   18           | TypeModifier Type TRUTH_VAL ASSIGN_OP AssignmentTail
+   19           | IDENTIFIER ASSIGN_OP AssignmentTail
+   20           | TRUTH_VAL ASSIGN_OP AssignmentTail
+
+   21 TypeModifier: CONST_IDENTIFIER
+
+   22 AssignmentTail: LogicExpr
+   23               | LEQExpr
+   24               | ArithmeticExpression
+
+   25 FunctionCall: IDENTIFIER '(' CallParameterList ')' Semicolon
+
+   26 CallParameterList: CallParameterList ',' CallParameter
+   27                  | CallParameter
+
+   28 CallParameter: IDENTIFIER
+   29              | Value
+   30              | TRUTH_VAL
+
+   31 Semicolon: ';'
+   32          | /* empty */
+
+   33 Std: STDIN_OP IDENTIFIER '+' Value
+   34    | STDOUT_OP IDENTIFIER '+' Value
+   35    | STDIN_OP Value
+   36    | STDOUT_OP Value
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP '[' Value ':' Value ']' Semicolon
+
+   38 CompoundProposition: CompoundProposition Connective CompoundProposition
+   39                    | Negation CompoundProposition
+   40                    | Proposition
+   41                    | '(' CompoundProposition ')'
+
+   42 Proposition: TRUTH_VAL
+   43            | BOOLEAN
+
+   44 Conditional: IF_CLAUSE LogicExpr '{' Statements '}'
+   45            | IF_CLAUSE LogicExpr '{' Statements '}' ELSE_CLAUSE '{' Statements '}'
+
+   46 LogicExpr: LogicExpr ComparisonOperator CompoundProposition
+   47          | CompoundProposition
+
+   48 LEQExpr: LEQExpr LogicOperator NumericType
+   49        | BOOLEAN
+
+   50 Pred: PRED IDENTIFIER '(' ParameterList ')' '{' Statements '}'
+
+   51 Function: FUNCTION Type IDENTIFIER '(' ParameterList ')' '{' Statements '}'
+
+   52 ParameterList: Parameter ',' ParameterList
+   53              | Parameter
+
+   54 Parameter: IDENTIFIER ':' Type
+   55          | /* empty */
+
+   56 While: WHILE_STMT LogicExpr '{' Statements '}'
+
+   57 Negation: NOT_OP
+
+   58 ArithmeticExpression: NumericType ArithmeticOperator NumericType
+   59                     | '(' ArithmeticExpression ')'
+
+   60 ArithmeticOperator: ADD_OP
+   61                   | SUB_OP
+   62                   | MUL_OP
+   63                   | DIV_OP
+   64                   | REMAINDER_OP
+
+   65 ComparisonOperator: EQUALITY_CHECK_OP
+   66                   | NOT_EQUAL_OP
+
+   67 LogicOperator: GTE_OP
+   68              | LTE_OP
+   69              | LT_OP
+   70              | GT_OP
+
+   71 Connective: AND_OP
+   72           | OR_OP
+   73           | NAND_OP
+   74           | XOR_OP
+   75           | XNOR_OP
+   76           | NOR_OP
+   77           | IF_AND_ONLY_IF_OP
+   78           | IF_THEN_OP
+
+   79 Type: NumericType
+   80     | STRING_TYPE
+   81     | TRUTH_TYPE
+   82     | RELATION_TYPE
+
+   83 NumericType: INTEGER_TYPE
+   84            | FLOAT_TYPE
+   85            | /* empty */
+
+   86 Value: INTEGER
+   87      | STRING
+   88      | BOOLEAN
+   89      | FLOAT
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 25 41 50 51 59
+')' (41) 25 41 50 51 59
+'+' (43) 33 34
+',' (44) 26 52
+':' (58) 37 54
+';' (59) 31
+'[' (91) 37
+']' (93) 37
+'{' (123) 44 45 50 51 56
+'}' (125) 44 45 50 51 56
+error (256)
+NAND_OP (258) 73
+XOR_OP (259) 74
+XNOR_OP (260) 75
+OR_OP (261) 72
+NOR_OP (262) 76
+NOT_OP (263) 57
+EQUALITY_CHECK_OP (264) 65
+NOT_EQUAL_OP (265) 66
+IF_AND_ONLY_IF_OP (266) 77
+IF_THEN_OP (267) 78
+BOLD_ARROW_OP (268)
+WHILE_STMT (269) 56
+AND_OP (270) 71
+ASSIGN_OP (271) 17 18 19 20 37
+MUL_OP (272) 62
+DIV_OP (273) 63
+REMAINDER_OP (274) 64
+GTE_OP (275) 67
+LTE_OP (276) 68
+GT_OP (277) 70
+LT_OP (278) 69
+ADD_OP (279) 60
+SUB_OP (280) 61
+STDIN_OP (281) 33 35
+STDOUT_OP (282) 34 36
+TRUTH_TYPE (283) 81
+INTEGER_TYPE (284) 83
+STRING_TYPE (285) 80
+FLOAT_TYPE (286) 84
+RELATION_TYPE (287) 37 82
+IF_CLAUSE (288) 44 45
+ELSE_CLAUSE (289) 45
+CONST_IDENTIFIER (290) 21
+BOOLEAN (291) 43 49 88
+STRING (292) 87
+TRUTH_VAL (293) 18 20 30 42
+FLOAT (294) 89
+INTEGER (295) 86
+IDENTIFIER (296) 16 17 19 25 28 33 34 37 50 51 54
+COMMENT (297)
+PROG_END (298) 1
+PROG_INIT (299) 1
+PRED (300) 50
+FUNCTION (301) 51
+
+
+Nonterminals, with rules where they appear
+
+$accept (57)
+    on left: 0
+Program (58)
+    on left: 1, on right: 0
+Block (59)
+    on left: 2 3, on right: 1 2
+Statements (60)
+    on left: 4 5, on right: 2 3 5 44 45 50 51 56
+Stmt (61)
+    on left: 6 7 8, on right: 4 5
+Other (62)
+    on left: 9 10 11 12 13 14 15, on right: 8
+Declaration (63)
+    on left: 16, on right: 13
+Assignment (64)
+    on left: 17 18 19 20, on right: 12
+TypeModifier (65)
+    on left: 21, on right: 16 17 18
+AssignmentTail (66)
+    on left: 22 23 24, on right: 17 18 19 20
+FunctionCall (67)
+    on left: 25, on right: 9
+CallParameterList (68)
+    on left: 26 27, on right: 25 26
+CallParameter (69)
+    on left: 28 29 30, on right: 26 27
+Semicolon (70)
+    on left: 31 32, on right: 16 25 37
+Std (71)
+    on left: 33 34 35 36, on right: 15
+RelationStatement (72)
+    on left: 37, on right: 14
+CompoundProposition (73)
+    on left: 38 39 40 41, on right: 38 39 41 46 47
+Proposition (74)
+    on left: 42 43, on right: 40
+Conditional (75)
+    on left: 44 45, on right: 11
+LogicExpr (76)
+    on left: 46 47, on right: 22 44 45 46 56
+LEQExpr (77)
+    on left: 48 49, on right: 23 48
+Pred (78)
+    on left: 50, on right: 7
+Function (79)
+    on left: 51, on right: 6
+ParameterList (80)
+    on left: 52 53, on right: 50 51 52
+Parameter (81)
+    on left: 54 55, on right: 52 53
+While (82)
+    on left: 56, on right: 10
+Negation (83)
+    on left: 57, on right: 39
+ArithmeticExpression (84)
+    on left: 58 59, on right: 24 59
+ArithmeticOperator (85)
+    on left: 60 61 62 63 64, on right: 58
+ComparisonOperator (86)
+    on left: 65 66, on right: 46
+LogicOperator (87)
+    on left: 67 68 69 70, on right: 48
+Connective (88)
+    on left: 71 72 73 74 75 76 77 78, on right: 38
+Type (89)
+    on left: 79 80 81 82, on right: 16 17 18 51 54
+NumericType (90)
+    on left: 83 84 85, on right: 48 58 79
+Value (91)
+    on left: 86 87 88 89, on right: 29 33 34 35 36 37
+
+
+state 0
+
+    0 $accept: . Program $end
+
+    PROG_INIT  shift, and go to state 1
+
+    Program  go to state 2
+
+
+state 1
+
+    1 Program: PROG_INIT . Block PROG_END
+
+    WHILE_STMT        shift, and go to state 3
+    STDIN_OP          shift, and go to state 4
+    STDOUT_OP         shift, and go to state 5
+    RELATION_TYPE     shift, and go to state 6
+    IF_CLAUSE         shift, and go to state 7
+    CONST_IDENTIFIER  shift, and go to state 8
+    TRUTH_VAL         shift, and go to state 9
+    IDENTIFIER        shift, and go to state 10
+    PRED              shift, and go to state 11
+    FUNCTION          shift, and go to state 12
+
+    Block              go to state 13
+    Statements         go to state 14
+    Stmt               go to state 15
+    Other              go to state 16
+    Declaration        go to state 17
+    Assignment         go to state 18
+    TypeModifier       go to state 19
+    FunctionCall       go to state 20
+    Std                go to state 21
+    RelationStatement  go to state 22
+    Conditional        go to state 23
+    Pred               go to state 24
+    Function           go to state 25
+    While              go to state 26
+
+
+state 2
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 27
+
+
+state 3
+
+   56 While: WHILE_STMT . LogicExpr '{' Statements '}'
+
+    NOT_OP     shift, and go to state 28
+    BOOLEAN    shift, and go to state 29
+    TRUTH_VAL  shift, and go to state 30
+    '('        shift, and go to state 31
+
+    CompoundProposition  go to state 32
+    Proposition          go to state 33
+    LogicExpr            go to state 34
+    Negation             go to state 35
+
+
+state 4
+
+   33 Std: STDIN_OP . IDENTIFIER '+' Value
+   35    | STDIN_OP . Value
+
+    BOOLEAN     shift, and go to state 36
+    STRING      shift, and go to state 37
+    FLOAT       shift, and go to state 38
+    INTEGER     shift, and go to state 39
+    IDENTIFIER  shift, and go to state 40
+
+    Value  go to state 41
+
+
+state 5
+
+   34 Std: STDOUT_OP . IDENTIFIER '+' Value
+   36    | STDOUT_OP . Value
+
+    BOOLEAN     shift, and go to state 36
+    STRING      shift, and go to state 37
+    FLOAT       shift, and go to state 38
+    INTEGER     shift, and go to state 39
+    IDENTIFIER  shift, and go to state 42
+
+    Value  go to state 43
+
+
+state 6
+
+   37 RelationStatement: RELATION_TYPE . IDENTIFIER ASSIGN_OP '[' Value ':' Value ']' Semicolon
+
+    IDENTIFIER  shift, and go to state 44
+
+
+state 7
+
+   44 Conditional: IF_CLAUSE . LogicExpr '{' Statements '}'
+   45            | IF_CLAUSE . LogicExpr '{' Statements '}' ELSE_CLAUSE '{' Statements '}'
+
+    NOT_OP     shift, and go to state 28
+    BOOLEAN    shift, and go to state 29
+    TRUTH_VAL  shift, and go to state 30
+    '('        shift, and go to state 31
+
+    CompoundProposition  go to state 32
+    Proposition          go to state 33
+    LogicExpr            go to state 45
+    Negation             go to state 35
+
+
+state 8
+
+   21 TypeModifier: CONST_IDENTIFIER .
+
+    $default  reduce using rule 21 (TypeModifier)
+
+
+state 9
+
+   20 Assignment: TRUTH_VAL . ASSIGN_OP AssignmentTail
+
+    ASSIGN_OP  shift, and go to state 46
+
+
+state 10
+
+   19 Assignment: IDENTIFIER . ASSIGN_OP AssignmentTail
+   25 FunctionCall: IDENTIFIER . '(' CallParameterList ')' Semicolon
+
+    ASSIGN_OP  shift, and go to state 47
+    '('        shift, and go to state 48
+
+
+state 11
+
+   50 Pred: PRED . IDENTIFIER '(' ParameterList ')' '{' Statements '}'
+
+    IDENTIFIER  shift, and go to state 49
+
+
+state 12
+
+   51 Function: FUNCTION . Type IDENTIFIER '(' ParameterList ')' '{' Statements '}'
+
+    TRUTH_TYPE     shift, and go to state 50
+    INTEGER_TYPE   shift, and go to state 51
+    STRING_TYPE    shift, and go to state 52
+    FLOAT_TYPE     shift, and go to state 53
+    RELATION_TYPE  shift, and go to state 54
+
+    $default  reduce using rule 85 (NumericType)
+
+    Type         go to state 55
+    NumericType  go to state 56
+
+
+state 13
+
+    1 Program: PROG_INIT Block . PROG_END
+
+    PROG_END  shift, and go to state 57
+
+
+state 14
+
+    2 Block: Statements . Block
+    3      | Statements .
+
+    WHILE_STMT        shift, and go to state 3
+    STDIN_OP          shift, and go to state 4
+    STDOUT_OP         shift, and go to state 5
+    RELATION_TYPE     shift, and go to state 6
+    IF_CLAUSE         shift, and go to state 7
+    CONST_IDENTIFIER  shift, and go to state 8
+    TRUTH_VAL         shift, and go to state 9
+    IDENTIFIER        shift, and go to state 10
+    PRED              shift, and go to state 11
+    FUNCTION          shift, and go to state 12
+
+    $default  reduce using rule 3 (Block)
+
+    Block              go to state 58
+    Statements         go to state 14
+    Stmt               go to state 15
+    Other              go to state 16
+    Declaration        go to state 17
+    Assignment         go to state 18
+    TypeModifier       go to state 19
+    FunctionCall       go to state 20
+    Std                go to state 21
+    RelationStatement  go to state 22
+    Conditional        go to state 23
+    Pred               go to state 24
+    Function           go to state 25
+    While              go to state 26
+
+
+state 15
+
+    4 Statements: Stmt .
+    5           | Stmt . Statements
+
+    WHILE_STMT        shift, and go to state 3
+    STDIN_OP          shift, and go to state 4
+    STDOUT_OP         shift, and go to state 5
+    RELATION_TYPE     shift, and go to state 6
+    IF_CLAUSE         shift, and go to state 7
+    CONST_IDENTIFIER  shift, and go to state 8
+    TRUTH_VAL         shift, and go to state 9
+    IDENTIFIER        shift, and go to state 10
+    PRED              shift, and go to state 11
+    FUNCTION          shift, and go to state 12
+
+    WHILE_STMT        [reduce using rule 4 (Statements)]
+    STDIN_OP          [reduce using rule 4 (Statements)]
+    STDOUT_OP         [reduce using rule 4 (Statements)]
+    RELATION_TYPE     [reduce using rule 4 (Statements)]
+    IF_CLAUSE         [reduce using rule 4 (Statements)]
+    CONST_IDENTIFIER  [reduce using rule 4 (Statements)]
+    TRUTH_VAL         [reduce using rule 4 (Statements)]
+    IDENTIFIER        [reduce using rule 4 (Statements)]
+    PRED              [reduce using rule 4 (Statements)]
+    FUNCTION          [reduce using rule 4 (Statements)]
+    $default          reduce using rule 4 (Statements)
+
+    Statements         go to state 59
+    Stmt               go to state 15
+    Other              go to state 16
+    Declaration        go to state 17
+    Assignment         go to state 18
+    TypeModifier       go to state 19
+    FunctionCall       go to state 20
+    Std                go to state 21
+    RelationStatement  go to state 22
+    Conditional        go to state 23
+    Pred               go to state 24
+    Function           go to state 25
+    While              go to state 26
+
+
+state 16
+
+    8 Stmt: Other .
+
+    $default  reduce using rule 8 (Stmt)
+
+
+state 17
+
+   13 Other: Declaration .
+
+    $default  reduce using rule 13 (Other)
+
+
+state 18
+
+   12 Other: Assignment .
+
+    $default  reduce using rule 12 (Other)
+
+
+state 19
+
+   16 Declaration: TypeModifier . Type IDENTIFIER Semicolon
+   17 Assignment: TypeModifier . Type IDENTIFIER ASSIGN_OP AssignmentTail
+   18           | TypeModifier . Type TRUTH_VAL ASSIGN_OP AssignmentTail
+
+    TRUTH_TYPE     shift, and go to state 50
+    INTEGER_TYPE   shift, and go to state 51
+    STRING_TYPE    shift, and go to state 52
+    FLOAT_TYPE     shift, and go to state 53
+    RELATION_TYPE  shift, and go to state 54
+
+    $default  reduce using rule 85 (NumericType)
+
+    Type         go to state 60
+    NumericType  go to state 56
+
+
+state 20
+
+    9 Other: FunctionCall .
+
+    $default  reduce using rule 9 (Other)
+
+
+state 21
+
+   15 Other: Std .
+
+    $default  reduce using rule 15 (Other)
+
+
+state 22
+
+   14 Other: RelationStatement .
+
+    $default  reduce using rule 14 (Other)
+
+
+state 23
+
+   11 Other: Conditional .
+
+    $default  reduce using rule 11 (Other)
+
+
+state 24
+
+    7 Stmt: Pred .
+
+    $default  reduce using rule 7 (Stmt)
+
+
+state 25
+
+    6 Stmt: Function .
+
+    $default  reduce using rule 6 (Stmt)
+
+
+state 26
+
+   10 Other: While .
+
+    $default  reduce using rule 10 (Other)
+
+
+state 27
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+state 28
+
+   57 Negation: NOT_OP .
+
+    $default  reduce using rule 57 (Negation)
+
+
+state 29
+
+   43 Proposition: BOOLEAN .
+
+    $default  reduce using rule 43 (Proposition)
+
+
+state 30
+
+   42 Proposition: TRUTH_VAL .
+
+    $default  reduce using rule 42 (Proposition)
+
+
+state 31
+
+   41 CompoundProposition: '(' . CompoundProposition ')'
+
+    NOT_OP     shift, and go to state 28
+    BOOLEAN    shift, and go to state 29
+    TRUTH_VAL  shift, and go to state 30
+    '('        shift, and go to state 31
+
+    CompoundProposition  go to state 61
+    Proposition          go to state 33
+    Negation             go to state 35
+
+
+state 32
+
+   38 CompoundProposition: CompoundProposition . Connective CompoundProposition
+   47 LogicExpr: CompoundProposition .
+
+    NAND_OP            shift, and go to state 62
+    XOR_OP             shift, and go to state 63
+    XNOR_OP            shift, and go to state 64
+    OR_OP              shift, and go to state 65
+    NOR_OP             shift, and go to state 66
+    IF_AND_ONLY_IF_OP  shift, and go to state 67
+    IF_THEN_OP         shift, and go to state 68
+    AND_OP             shift, and go to state 69
+
+    $default  reduce using rule 47 (LogicExpr)
+
+    Connective  go to state 70
+
+
+state 33
+
+   40 CompoundProposition: Proposition .
+
+    $default  reduce using rule 40 (CompoundProposition)
+
+
+state 34
+
+   46 LogicExpr: LogicExpr . ComparisonOperator CompoundProposition
+   56 While: WHILE_STMT LogicExpr . '{' Statements '}'
+
+    EQUALITY_CHECK_OP  shift, and go to state 71
+    NOT_EQUAL_OP       shift, and go to state 72
+    '{'                shift, and go to state 73
+
+    ComparisonOperator  go to state 74
+
+
+state 35
+
+   39 CompoundProposition: Negation . CompoundProposition
+
+    NOT_OP     shift, and go to state 28
+    BOOLEAN    shift, and go to state 29
+    TRUTH_VAL  shift, and go to state 30
+    '('        shift, and go to state 31
+
+    CompoundProposition  go to state 75
+    Proposition          go to state 33
+    Negation             go to state 35
+
+
+state 36
+
+   88 Value: BOOLEAN .
+
+    $default  reduce using rule 88 (Value)
+
+
+state 37
+
+   87 Value: STRING .
+
+    $default  reduce using rule 87 (Value)
+
+
+state 38
+
+   89 Value: FLOAT .
+
+    $default  reduce using rule 89 (Value)
+
+
+state 39
+
+   86 Value: INTEGER .
+
+    $default  reduce using rule 86 (Value)
+
+
+state 40
+
+   33 Std: STDIN_OP IDENTIFIER . '+' Value
+
+    '+'  shift, and go to state 76
+
+
+state 41
+
+   35 Std: STDIN_OP Value .
+
+    $default  reduce using rule 35 (Std)
+
+
+state 42
+
+   34 Std: STDOUT_OP IDENTIFIER . '+' Value
+
+    '+'  shift, and go to state 77
+
+
+state 43
+
+   36 Std: STDOUT_OP Value .
+
+    $default  reduce using rule 36 (Std)
+
+
+state 44
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER . ASSIGN_OP '[' Value ':' Value ']' Semicolon
+
+    ASSIGN_OP  shift, and go to state 78
+
+
+state 45
+
+   44 Conditional: IF_CLAUSE LogicExpr . '{' Statements '}'
+   45            | IF_CLAUSE LogicExpr . '{' Statements '}' ELSE_CLAUSE '{' Statements '}'
+   46 LogicExpr: LogicExpr . ComparisonOperator CompoundProposition
+
+    EQUALITY_CHECK_OP  shift, and go to state 71
+    NOT_EQUAL_OP       shift, and go to state 72
+    '{'                shift, and go to state 79
+
+    ComparisonOperator  go to state 74
+
+
+state 46
+
+   20 Assignment: TRUTH_VAL ASSIGN_OP . AssignmentTail
+
+    NOT_OP        shift, and go to state 28
+    INTEGER_TYPE  shift, and go to state 51
+    FLOAT_TYPE    shift, and go to state 53
+    BOOLEAN       shift, and go to state 80
+    TRUTH_VAL     shift, and go to state 30
+    '('           shift, and go to state 81
+
+    $default  reduce using rule 85 (NumericType)
+
+    AssignmentTail        go to state 82
+    CompoundProposition   go to state 32
+    Proposition           go to state 33
+    LogicExpr             go to state 83
+    LEQExpr               go to state 84
+    Negation              go to state 35
+    ArithmeticExpression  go to state 85
+    NumericType           go to state 86
+
+
+state 47
+
+   19 Assignment: IDENTIFIER ASSIGN_OP . AssignmentTail
+
+    NOT_OP        shift, and go to state 28
+    INTEGER_TYPE  shift, and go to state 51
+    FLOAT_TYPE    shift, and go to state 53
+    BOOLEAN       shift, and go to state 80
+    TRUTH_VAL     shift, and go to state 30
+    '('           shift, and go to state 81
+
+    $default  reduce using rule 85 (NumericType)
+
+    AssignmentTail        go to state 87
+    CompoundProposition   go to state 32
+    Proposition           go to state 33
+    LogicExpr             go to state 83
+    LEQExpr               go to state 84
+    Negation              go to state 35
+    ArithmeticExpression  go to state 85
+    NumericType           go to state 86
+
+
+state 48
+
+   25 FunctionCall: IDENTIFIER '(' . CallParameterList ')' Semicolon
+
+    BOOLEAN     shift, and go to state 36
+    STRING      shift, and go to state 37
+    TRUTH_VAL   shift, and go to state 88
+    FLOAT       shift, and go to state 38
+    INTEGER     shift, and go to state 39
+    IDENTIFIER  shift, and go to state 89
+
+    CallParameterList  go to state 90
+    CallParameter      go to state 91
+    Value              go to state 92
+
+
+state 49
+
+   50 Pred: PRED IDENTIFIER . '(' ParameterList ')' '{' Statements '}'
+
+    '('  shift, and go to state 93
+
+
+state 50
+
+   81 Type: TRUTH_TYPE .
+
+    $default  reduce using rule 81 (Type)
+
+
+state 51
+
+   83 NumericType: INTEGER_TYPE .
+
+    $default  reduce using rule 83 (NumericType)
+
+
+state 52
+
+   80 Type: STRING_TYPE .
+
+    $default  reduce using rule 80 (Type)
+
+
+state 53
+
+   84 NumericType: FLOAT_TYPE .
+
+    $default  reduce using rule 84 (NumericType)
+
+
+state 54
+
+   82 Type: RELATION_TYPE .
+
+    $default  reduce using rule 82 (Type)
+
+
+state 55
+
+   51 Function: FUNCTION Type . IDENTIFIER '(' ParameterList ')' '{' Statements '}'
+
+    IDENTIFIER  shift, and go to state 94
+
+
+state 56
+
+   79 Type: NumericType .
+
+    $default  reduce using rule 79 (Type)
+
+
+state 57
+
+    1 Program: PROG_INIT Block PROG_END .
+
+    $default  reduce using rule 1 (Program)
+
+
+state 58
+
+    2 Block: Statements Block .
+
+    $default  reduce using rule 2 (Block)
+
+
+state 59
+
+    5 Statements: Stmt Statements .
+
+    $default  reduce using rule 5 (Statements)
+
+
+state 60
+
+   16 Declaration: TypeModifier Type . IDENTIFIER Semicolon
+   17 Assignment: TypeModifier Type . IDENTIFIER ASSIGN_OP AssignmentTail
+   18           | TypeModifier Type . TRUTH_VAL ASSIGN_OP AssignmentTail
+
+    TRUTH_VAL   shift, and go to state 95
+    IDENTIFIER  shift, and go to state 96
+
+
+state 61
+
+   38 CompoundProposition: CompoundProposition . Connective CompoundProposition
+   41                    | '(' CompoundProposition . ')'
+
+    NAND_OP            shift, and go to state 62
+    XOR_OP             shift, and go to state 63
+    XNOR_OP            shift, and go to state 64
+    OR_OP              shift, and go to state 65
+    NOR_OP             shift, and go to state 66
+    IF_AND_ONLY_IF_OP  shift, and go to state 67
+    IF_THEN_OP         shift, and go to state 68
+    AND_OP             shift, and go to state 69
+    ')'                shift, and go to state 97
+
+    Connective  go to state 70
+
+
+state 62
+
+   73 Connective: NAND_OP .
+
+    $default  reduce using rule 73 (Connective)
+
+
+state 63
+
+   74 Connective: XOR_OP .
+
+    $default  reduce using rule 74 (Connective)
+
+
+state 64
+
+   75 Connective: XNOR_OP .
+
+    $default  reduce using rule 75 (Connective)
+
+
+state 65
+
+   72 Connective: OR_OP .
+
+    $default  reduce using rule 72 (Connective)
+
+
+state 66
+
+   76 Connective: NOR_OP .
+
+    $default  reduce using rule 76 (Connective)
+
+
+state 67
+
+   77 Connective: IF_AND_ONLY_IF_OP .
+
+    $default  reduce using rule 77 (Connective)
+
+
+state 68
+
+   78 Connective: IF_THEN_OP .
+
+    $default  reduce using rule 78 (Connective)
+
+
+state 69
+
+   71 Connective: AND_OP .
+
+    $default  reduce using rule 71 (Connective)
+
+
+state 70
+
+   38 CompoundProposition: CompoundProposition Connective . CompoundProposition
+
+    NOT_OP     shift, and go to state 28
+    BOOLEAN    shift, and go to state 29
+    TRUTH_VAL  shift, and go to state 30
+    '('        shift, and go to state 31
+
+    CompoundProposition  go to state 98
+    Proposition          go to state 33
+    Negation             go to state 35
+
+
+state 71
+
+   65 ComparisonOperator: EQUALITY_CHECK_OP .
+
+    $default  reduce using rule 65 (ComparisonOperator)
+
+
+state 72
+
+   66 ComparisonOperator: NOT_EQUAL_OP .
+
+    $default  reduce using rule 66 (ComparisonOperator)
+
+
+state 73
+
+   56 While: WHILE_STMT LogicExpr '{' . Statements '}'
+
+    WHILE_STMT        shift, and go to state 3
+    STDIN_OP          shift, and go to state 4
+    STDOUT_OP         shift, and go to state 5
+    RELATION_TYPE     shift, and go to state 6
+    IF_CLAUSE         shift, and go to state 7
+    CONST_IDENTIFIER  shift, and go to state 8
+    TRUTH_VAL         shift, and go to state 9
+    IDENTIFIER        shift, and go to state 10
+    PRED              shift, and go to state 11
+    FUNCTION          shift, and go to state 12
+
+    Statements         go to state 99
+    Stmt               go to state 15
+    Other              go to state 16
+    Declaration        go to state 17
+    Assignment         go to state 18
+    TypeModifier       go to state 19
+    FunctionCall       go to state 20
+    Std                go to state 21
+    RelationStatement  go to state 22
+    Conditional        go to state 23
+    Pred               go to state 24
+    Function           go to state 25
+    While              go to state 26
+
+
+state 74
+
+   46 LogicExpr: LogicExpr ComparisonOperator . CompoundProposition
+
+    NOT_OP     shift, and go to state 28
+    BOOLEAN    shift, and go to state 29
+    TRUTH_VAL  shift, and go to state 30
+    '('        shift, and go to state 31
+
+    CompoundProposition  go to state 100
+    Proposition          go to state 33
+    Negation             go to state 35
+
+
+state 75
+
+   38 CompoundProposition: CompoundProposition . Connective CompoundProposition
+   39                    | Negation CompoundProposition .
+
+    NAND_OP            shift, and go to state 62
+    XOR_OP             shift, and go to state 63
+    XNOR_OP            shift, and go to state 64
+    OR_OP              shift, and go to state 65
+    NOR_OP             shift, and go to state 66
+    IF_AND_ONLY_IF_OP  shift, and go to state 67
+    IF_THEN_OP         shift, and go to state 68
+    AND_OP             shift, and go to state 69
+
+    NAND_OP            [reduce using rule 39 (CompoundProposition)]
+    XOR_OP             [reduce using rule 39 (CompoundProposition)]
+    XNOR_OP            [reduce using rule 39 (CompoundProposition)]
+    OR_OP              [reduce using rule 39 (CompoundProposition)]
+    NOR_OP             [reduce using rule 39 (CompoundProposition)]
+    IF_AND_ONLY_IF_OP  [reduce using rule 39 (CompoundProposition)]
+    IF_THEN_OP         [reduce using rule 39 (CompoundProposition)]
+    AND_OP             [reduce using rule 39 (CompoundProposition)]
+    $default           reduce using rule 39 (CompoundProposition)
+
+    Connective  go to state 70
+
+
+state 76
+
+   33 Std: STDIN_OP IDENTIFIER '+' . Value
+
+    BOOLEAN  shift, and go to state 36
+    STRING   shift, and go to state 37
+    FLOAT    shift, and go to state 38
+    INTEGER  shift, and go to state 39
+
+    Value  go to state 101
+
+
+state 77
+
+   34 Std: STDOUT_OP IDENTIFIER '+' . Value
+
+    BOOLEAN  shift, and go to state 36
+    STRING   shift, and go to state 37
+    FLOAT    shift, and go to state 38
+    INTEGER  shift, and go to state 39
+
+    Value  go to state 102
+
+
+state 78
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP . '[' Value ':' Value ']' Semicolon
+
+    '['  shift, and go to state 103
+
+
+state 79
+
+   44 Conditional: IF_CLAUSE LogicExpr '{' . Statements '}'
+   45            | IF_CLAUSE LogicExpr '{' . Statements '}' ELSE_CLAUSE '{' Statements '}'
+
+    WHILE_STMT        shift, and go to state 3
+    STDIN_OP          shift, and go to state 4
+    STDOUT_OP         shift, and go to state 5
+    RELATION_TYPE     shift, and go to state 6
+    IF_CLAUSE         shift, and go to state 7
+    CONST_IDENTIFIER  shift, and go to state 8
+    TRUTH_VAL         shift, and go to state 9
+    IDENTIFIER        shift, and go to state 10
+    PRED              shift, and go to state 11
+    FUNCTION          shift, and go to state 12
+
+    Statements         go to state 104
+    Stmt               go to state 15
+    Other              go to state 16
+    Declaration        go to state 17
+    Assignment         go to state 18
+    TypeModifier       go to state 19
+    FunctionCall       go to state 20
+    Std                go to state 21
+    RelationStatement  go to state 22
+    Conditional        go to state 23
+    Pred               go to state 24
+    Function           go to state 25
+    While              go to state 26
+
+
+state 80
+
+   43 Proposition: BOOLEAN .
+   49 LEQExpr: BOOLEAN .
+
+    WHILE_STMT        reduce using rule 43 (Proposition)
+    WHILE_STMT        [reduce using rule 49 (LEQExpr)]
+    GTE_OP            reduce using rule 49 (LEQExpr)
+    LTE_OP            reduce using rule 49 (LEQExpr)
+    GT_OP             reduce using rule 49 (LEQExpr)
+    LT_OP             reduce using rule 49 (LEQExpr)
+    STDIN_OP          reduce using rule 43 (Proposition)
+    STDIN_OP          [reduce using rule 49 (LEQExpr)]
+    STDOUT_OP         reduce using rule 43 (Proposition)
+    STDOUT_OP         [reduce using rule 49 (LEQExpr)]
+    RELATION_TYPE     reduce using rule 43 (Proposition)
+    RELATION_TYPE     [reduce using rule 49 (LEQExpr)]
+    IF_CLAUSE         reduce using rule 43 (Proposition)
+    IF_CLAUSE         [reduce using rule 49 (LEQExpr)]
+    CONST_IDENTIFIER  reduce using rule 43 (Proposition)
+    CONST_IDENTIFIER  [reduce using rule 49 (LEQExpr)]
+    TRUTH_VAL         reduce using rule 43 (Proposition)
+    TRUTH_VAL         [reduce using rule 49 (LEQExpr)]
+    IDENTIFIER        reduce using rule 43 (Proposition)
+    IDENTIFIER        [reduce using rule 49 (LEQExpr)]
+    PROG_END          reduce using rule 43 (Proposition)
+    PROG_END          [reduce using rule 49 (LEQExpr)]
+    PRED              reduce using rule 43 (Proposition)
+    PRED              [reduce using rule 49 (LEQExpr)]
+    FUNCTION          reduce using rule 43 (Proposition)
+    FUNCTION          [reduce using rule 49 (LEQExpr)]
+    '}'               reduce using rule 43 (Proposition)
+    '}'               [reduce using rule 49 (LEQExpr)]
+    $default          reduce using rule 43 (Proposition)
+
+
+state 81
+
+   41 CompoundProposition: '(' . CompoundProposition ')'
+   59 ArithmeticExpression: '(' . ArithmeticExpression ')'
+
+    NOT_OP        shift, and go to state 28
+    INTEGER_TYPE  shift, and go to state 51
+    FLOAT_TYPE    shift, and go to state 53
+    BOOLEAN       shift, and go to state 29
+    TRUTH_VAL     shift, and go to state 30
+    '('           shift, and go to state 81
+
+    $default  reduce using rule 85 (NumericType)
+
+    CompoundProposition   go to state 61
+    Proposition           go to state 33
+    Negation              go to state 35
+    ArithmeticExpression  go to state 105
+    NumericType           go to state 86
+
+
+state 82
+
+   20 Assignment: TRUTH_VAL ASSIGN_OP AssignmentTail .
+
+    $default  reduce using rule 20 (Assignment)
+
+
+state 83
+
+   22 AssignmentTail: LogicExpr .
+   46 LogicExpr: LogicExpr . ComparisonOperator CompoundProposition
+
+    EQUALITY_CHECK_OP  shift, and go to state 71
+    NOT_EQUAL_OP       shift, and go to state 72
+
+    $default  reduce using rule 22 (AssignmentTail)
+
+    ComparisonOperator  go to state 74
+
+
+state 84
+
+   23 AssignmentTail: LEQExpr .
+   48 LEQExpr: LEQExpr . LogicOperator NumericType
+
+    GTE_OP  shift, and go to state 106
+    LTE_OP  shift, and go to state 107
+    GT_OP   shift, and go to state 108
+    LT_OP   shift, and go to state 109
+
+    $default  reduce using rule 23 (AssignmentTail)
+
+    LogicOperator  go to state 110
+
+
+state 85
+
+   24 AssignmentTail: ArithmeticExpression .
+
+    $default  reduce using rule 24 (AssignmentTail)
+
+
+state 86
+
+   58 ArithmeticExpression: NumericType . ArithmeticOperator NumericType
+
+    MUL_OP        shift, and go to state 111
+    DIV_OP        shift, and go to state 112
+    REMAINDER_OP  shift, and go to state 113
+    ADD_OP        shift, and go to state 114
+    SUB_OP        shift, and go to state 115
+
+    ArithmeticOperator  go to state 116
+
+
+state 87
+
+   19 Assignment: IDENTIFIER ASSIGN_OP AssignmentTail .
+
+    $default  reduce using rule 19 (Assignment)
+
+
+state 88
+
+   30 CallParameter: TRUTH_VAL .
+
+    $default  reduce using rule 30 (CallParameter)
+
+
+state 89
+
+   28 CallParameter: IDENTIFIER .
+
+    $default  reduce using rule 28 (CallParameter)
+
+
+state 90
+
+   25 FunctionCall: IDENTIFIER '(' CallParameterList . ')' Semicolon
+   26 CallParameterList: CallParameterList . ',' CallParameter
+
+    ')'  shift, and go to state 117
+    ','  shift, and go to state 118
+
+
+state 91
+
+   27 CallParameterList: CallParameter .
+
+    $default  reduce using rule 27 (CallParameterList)
+
+
+state 92
+
+   29 CallParameter: Value .
+
+    $default  reduce using rule 29 (CallParameter)
+
+
+state 93
+
+   50 Pred: PRED IDENTIFIER '(' . ParameterList ')' '{' Statements '}'
+
+    IDENTIFIER  shift, and go to state 119
+
+    $default  reduce using rule 55 (Parameter)
+
+    ParameterList  go to state 120
+    Parameter      go to state 121
+
+
+state 94
+
+   51 Function: FUNCTION Type IDENTIFIER . '(' ParameterList ')' '{' Statements '}'
+
+    '('  shift, and go to state 122
+
+
+state 95
+
+   18 Assignment: TypeModifier Type TRUTH_VAL . ASSIGN_OP AssignmentTail
+
+    ASSIGN_OP  shift, and go to state 123
+
+
+state 96
+
+   16 Declaration: TypeModifier Type IDENTIFIER . Semicolon
+   17 Assignment: TypeModifier Type IDENTIFIER . ASSIGN_OP AssignmentTail
+
+    ASSIGN_OP  shift, and go to state 124
+    ';'        shift, and go to state 125
+
+    $default  reduce using rule 32 (Semicolon)
+
+    Semicolon  go to state 126
+
+
+state 97
+
+   41 CompoundProposition: '(' CompoundProposition ')' .
+
+    $default  reduce using rule 41 (CompoundProposition)
+
+
+state 98
+
+   38 CompoundProposition: CompoundProposition . Connective CompoundProposition
+   38                    | CompoundProposition Connective CompoundProposition .
+
+    NAND_OP            shift, and go to state 62
+    XOR_OP             shift, and go to state 63
+    XNOR_OP            shift, and go to state 64
+    OR_OP              shift, and go to state 65
+    NOR_OP             shift, and go to state 66
+    IF_AND_ONLY_IF_OP  shift, and go to state 67
+    IF_THEN_OP         shift, and go to state 68
+    AND_OP             shift, and go to state 69
+
+    NAND_OP            [reduce using rule 38 (CompoundProposition)]
+    XOR_OP             [reduce using rule 38 (CompoundProposition)]
+    XNOR_OP            [reduce using rule 38 (CompoundProposition)]
+    OR_OP              [reduce using rule 38 (CompoundProposition)]
+    NOR_OP             [reduce using rule 38 (CompoundProposition)]
+    IF_AND_ONLY_IF_OP  [reduce using rule 38 (CompoundProposition)]
+    IF_THEN_OP         [reduce using rule 38 (CompoundProposition)]
+    AND_OP             [reduce using rule 38 (CompoundProposition)]
+    $default           reduce using rule 38 (CompoundProposition)
+
+    Connective  go to state 70
+
+
+state 99
+
+   56 While: WHILE_STMT LogicExpr '{' Statements . '}'
+
+    '}'  shift, and go to state 127
+
+
+state 100
+
+   38 CompoundProposition: CompoundProposition . Connective CompoundProposition
+   46 LogicExpr: LogicExpr ComparisonOperator CompoundProposition .
+
+    NAND_OP            shift, and go to state 62
+    XOR_OP             shift, and go to state 63
+    XNOR_OP            shift, and go to state 64
+    OR_OP              shift, and go to state 65
+    NOR_OP             shift, and go to state 66
+    IF_AND_ONLY_IF_OP  shift, and go to state 67
+    IF_THEN_OP         shift, and go to state 68
+    AND_OP             shift, and go to state 69
+
+    $default  reduce using rule 46 (LogicExpr)
+
+    Connective  go to state 70
+
+
+state 101
+
+   33 Std: STDIN_OP IDENTIFIER '+' Value .
+
+    $default  reduce using rule 33 (Std)
+
+
+state 102
+
+   34 Std: STDOUT_OP IDENTIFIER '+' Value .
+
+    $default  reduce using rule 34 (Std)
+
+
+state 103
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP '[' . Value ':' Value ']' Semicolon
+
+    BOOLEAN  shift, and go to state 36
+    STRING   shift, and go to state 37
+    FLOAT    shift, and go to state 38
+    INTEGER  shift, and go to state 39
+
+    Value  go to state 128
+
+
+state 104
+
+   44 Conditional: IF_CLAUSE LogicExpr '{' Statements . '}'
+   45            | IF_CLAUSE LogicExpr '{' Statements . '}' ELSE_CLAUSE '{' Statements '}'
+
+    '}'  shift, and go to state 129
+
+
+state 105
+
+   59 ArithmeticExpression: '(' ArithmeticExpression . ')'
+
+    ')'  shift, and go to state 130
+
+
+state 106
+
+   67 LogicOperator: GTE_OP .
+
+    $default  reduce using rule 67 (LogicOperator)
+
+
+state 107
+
+   68 LogicOperator: LTE_OP .
+
+    $default  reduce using rule 68 (LogicOperator)
+
+
+state 108
+
+   70 LogicOperator: GT_OP .
+
+    $default  reduce using rule 70 (LogicOperator)
+
+
+state 109
+
+   69 LogicOperator: LT_OP .
+
+    $default  reduce using rule 69 (LogicOperator)
+
+
+state 110
+
+   48 LEQExpr: LEQExpr LogicOperator . NumericType
+
+    INTEGER_TYPE  shift, and go to state 51
+    FLOAT_TYPE    shift, and go to state 53
+
+    $default  reduce using rule 85 (NumericType)
+
+    NumericType  go to state 131
+
+
+state 111
+
+   62 ArithmeticOperator: MUL_OP .
+
+    $default  reduce using rule 62 (ArithmeticOperator)
+
+
+state 112
+
+   63 ArithmeticOperator: DIV_OP .
+
+    $default  reduce using rule 63 (ArithmeticOperator)
+
+
+state 113
+
+   64 ArithmeticOperator: REMAINDER_OP .
+
+    $default  reduce using rule 64 (ArithmeticOperator)
+
+
+state 114
+
+   60 ArithmeticOperator: ADD_OP .
+
+    $default  reduce using rule 60 (ArithmeticOperator)
+
+
+state 115
+
+   61 ArithmeticOperator: SUB_OP .
+
+    $default  reduce using rule 61 (ArithmeticOperator)
+
+
+state 116
+
+   58 ArithmeticExpression: NumericType ArithmeticOperator . NumericType
+
+    INTEGER_TYPE  shift, and go to state 51
+    FLOAT_TYPE    shift, and go to state 53
+
+    $default  reduce using rule 85 (NumericType)
+
+    NumericType  go to state 132
+
+
+state 117
+
+   25 FunctionCall: IDENTIFIER '(' CallParameterList ')' . Semicolon
+
+    ';'  shift, and go to state 125
+
+    $default  reduce using rule 32 (Semicolon)
+
+    Semicolon  go to state 133
+
+
+state 118
+
+   26 CallParameterList: CallParameterList ',' . CallParameter
+
+    BOOLEAN     shift, and go to state 36
+    STRING      shift, and go to state 37
+    TRUTH_VAL   shift, and go to state 88
+    FLOAT       shift, and go to state 38
+    INTEGER     shift, and go to state 39
+    IDENTIFIER  shift, and go to state 89
+
+    CallParameter  go to state 134
+    Value          go to state 92
+
+
+state 119
+
+   54 Parameter: IDENTIFIER . ':' Type
+
+    ':'  shift, and go to state 135
+
+
+state 120
+
+   50 Pred: PRED IDENTIFIER '(' ParameterList . ')' '{' Statements '}'
+
+    ')'  shift, and go to state 136
+
+
+state 121
+
+   52 ParameterList: Parameter . ',' ParameterList
+   53              | Parameter .
+
+    ','  shift, and go to state 137
+
+    $default  reduce using rule 53 (ParameterList)
+
+
+state 122
+
+   51 Function: FUNCTION Type IDENTIFIER '(' . ParameterList ')' '{' Statements '}'
+
+    IDENTIFIER  shift, and go to state 119
+
+    $default  reduce using rule 55 (Parameter)
+
+    ParameterList  go to state 138
+    Parameter      go to state 121
+
+
+state 123
+
+   18 Assignment: TypeModifier Type TRUTH_VAL ASSIGN_OP . AssignmentTail
+
+    NOT_OP        shift, and go to state 28
+    INTEGER_TYPE  shift, and go to state 51
+    FLOAT_TYPE    shift, and go to state 53
+    BOOLEAN       shift, and go to state 80
+    TRUTH_VAL     shift, and go to state 30
+    '('           shift, and go to state 81
+
+    $default  reduce using rule 85 (NumericType)
+
+    AssignmentTail        go to state 139
+    CompoundProposition   go to state 32
+    Proposition           go to state 33
+    LogicExpr             go to state 83
+    LEQExpr               go to state 84
+    Negation              go to state 35
+    ArithmeticExpression  go to state 85
+    NumericType           go to state 86
+
+
+state 124
+
+   17 Assignment: TypeModifier Type IDENTIFIER ASSIGN_OP . AssignmentTail
+
+    NOT_OP        shift, and go to state 28
+    INTEGER_TYPE  shift, and go to state 51
+    FLOAT_TYPE    shift, and go to state 53
+    BOOLEAN       shift, and go to state 80
+    TRUTH_VAL     shift, and go to state 30
+    '('           shift, and go to state 81
+
+    $default  reduce using rule 85 (NumericType)
+
+    AssignmentTail        go to state 140
+    CompoundProposition   go to state 32
+    Proposition           go to state 33
+    LogicExpr             go to state 83
+    LEQExpr               go to state 84
+    Negation              go to state 35
+    ArithmeticExpression  go to state 85
+    NumericType           go to state 86
+
+
+state 125
+
+   31 Semicolon: ';' .
+
+    $default  reduce using rule 31 (Semicolon)
+
+
+state 126
+
+   16 Declaration: TypeModifier Type IDENTIFIER Semicolon .
+
+    $default  reduce using rule 16 (Declaration)
+
+
+state 127
+
+   56 While: WHILE_STMT LogicExpr '{' Statements '}' .
+
+    $default  reduce using rule 56 (While)
+
+
+state 128
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP '[' Value . ':' Value ']' Semicolon
+
+    ':'  shift, and go to state 141
+
+
+state 129
+
+   44 Conditional: IF_CLAUSE LogicExpr '{' Statements '}' .
+   45            | IF_CLAUSE LogicExpr '{' Statements '}' . ELSE_CLAUSE '{' Statements '}'
+
+    ELSE_CLAUSE  shift, and go to state 142
+
+    $default  reduce using rule 44 (Conditional)
+
+
+state 130
+
+   59 ArithmeticExpression: '(' ArithmeticExpression ')' .
+
+    $default  reduce using rule 59 (ArithmeticExpression)
+
+
+state 131
+
+   48 LEQExpr: LEQExpr LogicOperator NumericType .
+
+    $default  reduce using rule 48 (LEQExpr)
+
+
+state 132
+
+   58 ArithmeticExpression: NumericType ArithmeticOperator NumericType .
+
+    $default  reduce using rule 58 (ArithmeticExpression)
+
+
+state 133
+
+   25 FunctionCall: IDENTIFIER '(' CallParameterList ')' Semicolon .
+
+    $default  reduce using rule 25 (FunctionCall)
+
+
+state 134
+
+   26 CallParameterList: CallParameterList ',' CallParameter .
+
+    $default  reduce using rule 26 (CallParameterList)
+
+
+state 135
+
+   54 Parameter: IDENTIFIER ':' . Type
+
+    TRUTH_TYPE     shift, and go to state 50
+    INTEGER_TYPE   shift, and go to state 51
+    STRING_TYPE    shift, and go to state 52
+    FLOAT_TYPE     shift, and go to state 53
+    RELATION_TYPE  shift, and go to state 54
+
+    $default  reduce using rule 85 (NumericType)
+
+    Type         go to state 143
+    NumericType  go to state 56
+
+
+state 136
+
+   50 Pred: PRED IDENTIFIER '(' ParameterList ')' . '{' Statements '}'
+
+    '{'  shift, and go to state 144
+
+
+state 137
+
+   52 ParameterList: Parameter ',' . ParameterList
+
+    IDENTIFIER  shift, and go to state 119
+
+    $default  reduce using rule 55 (Parameter)
+
+    ParameterList  go to state 145
+    Parameter      go to state 121
+
+
+state 138
+
+   51 Function: FUNCTION Type IDENTIFIER '(' ParameterList . ')' '{' Statements '}'
+
+    ')'  shift, and go to state 146
+
+
+state 139
+
+   18 Assignment: TypeModifier Type TRUTH_VAL ASSIGN_OP AssignmentTail .
+
+    $default  reduce using rule 18 (Assignment)
+
+
+state 140
+
+   17 Assignment: TypeModifier Type IDENTIFIER ASSIGN_OP AssignmentTail .
+
+    $default  reduce using rule 17 (Assignment)
+
+
+state 141
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP '[' Value ':' . Value ']' Semicolon
+
+    BOOLEAN  shift, and go to state 36
+    STRING   shift, and go to state 37
+    FLOAT    shift, and go to state 38
+    INTEGER  shift, and go to state 39
+
+    Value  go to state 147
+
+
+state 142
+
+   45 Conditional: IF_CLAUSE LogicExpr '{' Statements '}' ELSE_CLAUSE . '{' Statements '}'
+
+    '{'  shift, and go to state 148
+
+
+state 143
+
+   54 Parameter: IDENTIFIER ':' Type .
+
+    $default  reduce using rule 54 (Parameter)
+
+
+state 144
+
+   50 Pred: PRED IDENTIFIER '(' ParameterList ')' '{' . Statements '}'
+
+    WHILE_STMT        shift, and go to state 3
+    STDIN_OP          shift, and go to state 4
+    STDOUT_OP         shift, and go to state 5
+    RELATION_TYPE     shift, and go to state 6
+    IF_CLAUSE         shift, and go to state 7
+    CONST_IDENTIFIER  shift, and go to state 8
+    TRUTH_VAL         shift, and go to state 9
+    IDENTIFIER        shift, and go to state 10
+    PRED              shift, and go to state 11
+    FUNCTION          shift, and go to state 12
+
+    Statements         go to state 149
+    Stmt               go to state 15
+    Other              go to state 16
+    Declaration        go to state 17
+    Assignment         go to state 18
+    TypeModifier       go to state 19
+    FunctionCall       go to state 20
+    Std                go to state 21
+    RelationStatement  go to state 22
+    Conditional        go to state 23
+    Pred               go to state 24
+    Function           go to state 25
+    While              go to state 26
+
+
+state 145
+
+   52 ParameterList: Parameter ',' ParameterList .
+
+    $default  reduce using rule 52 (ParameterList)
+
+
+state 146
+
+   51 Function: FUNCTION Type IDENTIFIER '(' ParameterList ')' . '{' Statements '}'
+
+    '{'  shift, and go to state 150
+
+
+state 147
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP '[' Value ':' Value . ']' Semicolon
+
+    ']'  shift, and go to state 151
+
+
+state 148
+
+   45 Conditional: IF_CLAUSE LogicExpr '{' Statements '}' ELSE_CLAUSE '{' . Statements '}'
+
+    WHILE_STMT        shift, and go to state 3
+    STDIN_OP          shift, and go to state 4
+    STDOUT_OP         shift, and go to state 5
+    RELATION_TYPE     shift, and go to state 6
+    IF_CLAUSE         shift, and go to state 7
+    CONST_IDENTIFIER  shift, and go to state 8
+    TRUTH_VAL         shift, and go to state 9
+    IDENTIFIER        shift, and go to state 10
+    PRED              shift, and go to state 11
+    FUNCTION          shift, and go to state 12
+
+    Statements         go to state 152
+    Stmt               go to state 15
+    Other              go to state 16
+    Declaration        go to state 17
+    Assignment         go to state 18
+    TypeModifier       go to state 19
+    FunctionCall       go to state 20
+    Std                go to state 21
+    RelationStatement  go to state 22
+    Conditional        go to state 23
+    Pred               go to state 24
+    Function           go to state 25
+    While              go to state 26
+
+
+state 149
+
+   50 Pred: PRED IDENTIFIER '(' ParameterList ')' '{' Statements . '}'
+
+    '}'  shift, and go to state 153
+
+
+state 150
+
+   51 Function: FUNCTION Type IDENTIFIER '(' ParameterList ')' '{' . Statements '}'
+
+    WHILE_STMT        shift, and go to state 3
+    STDIN_OP          shift, and go to state 4
+    STDOUT_OP         shift, and go to state 5
+    RELATION_TYPE     shift, and go to state 6
+    IF_CLAUSE         shift, and go to state 7
+    CONST_IDENTIFIER  shift, and go to state 8
+    TRUTH_VAL         shift, and go to state 9
+    IDENTIFIER        shift, and go to state 10
+    PRED              shift, and go to state 11
+    FUNCTION          shift, and go to state 12
+
+    Statements         go to state 154
+    Stmt               go to state 15
+    Other              go to state 16
+    Declaration        go to state 17
+    Assignment         go to state 18
+    TypeModifier       go to state 19
+    FunctionCall       go to state 20
+    Std                go to state 21
+    RelationStatement  go to state 22
+    Conditional        go to state 23
+    Pred               go to state 24
+    Function           go to state 25
+    While              go to state 26
+
+
+state 151
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP '[' Value ':' Value ']' . Semicolon
+
+    ';'  shift, and go to state 125
+
+    $default  reduce using rule 32 (Semicolon)
+
+    Semicolon  go to state 155
+
+
+state 152
+
+   45 Conditional: IF_CLAUSE LogicExpr '{' Statements '}' ELSE_CLAUSE '{' Statements . '}'
+
+    '}'  shift, and go to state 156
+
+
+state 153
+
+   50 Pred: PRED IDENTIFIER '(' ParameterList ')' '{' Statements '}' .
+
+    $default  reduce using rule 50 (Pred)
+
+
+state 154
+
+   51 Function: FUNCTION Type IDENTIFIER '(' ParameterList ')' '{' Statements . '}'
+
+    '}'  shift, and go to state 157
+
+
+state 155
+
+   37 RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP '[' Value ':' Value ']' Semicolon .
+
+    $default  reduce using rule 37 (RelationStatement)
+
+
+state 156
+
+   45 Conditional: IF_CLAUSE LogicExpr '{' Statements '}' ELSE_CLAUSE '{' Statements '}' .
+
+    $default  reduce using rule 45 (Conditional)
+
+
+state 157
+
+   51 Function: FUNCTION Type IDENTIFIER '(' ParameterList ')' '{' Statements '}' .
+
+    $default  reduce using rule 51 (Function)

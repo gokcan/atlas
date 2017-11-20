@@ -10,5 +10,4 @@ int main(void){
     if (ret!=0)
       return EXIT_FAILURE;
     return EXIT_SUCCESS;
-
 }

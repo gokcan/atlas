@@ -1,0 +1,29 @@
+init
+
+## Hello visitor! Welcome to Atlas, the programming language for propositional calculus and more.
+## Atlas' syntax is similar to language we use in our daily lives. It is also type-safe and efficient.
+## It is also highly inspired from Kotlin, Swift and Python.
+
+pure truth 'earth is flat' = false; ## cannot be assigned again, because you know, it is "pure".
+truth 'democracy is an illusion" is true; ## Yeah, you can also assign with is/are keywords.
+
+pred lieMachine(param:truth) {
+
+    if param nand un {
+        say param + "is a lie";
+
+    } else {
+        as long as param remains true {
+            if 'democracy is an illusion' xor true{
+                param = false;
+            } else {
+                say "This is cool.";
+            }
+        }
+    }
+}
+
+lieMachine('democracy is an illusion');
+
+
+@@

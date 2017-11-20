@@ -1,3 +1,12 @@
+%{
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include "y.tab.h"
+    void yyerror(char *);
+    int yylex(void);
+    extern char* yytext;
+%}
+
 %token NAND_OP 
 %token XOR_OP 
 %token XNOR_OP 
@@ -42,26 +51,20 @@
 %token PROG_INIT
 %token PRED
 %token FUNCTION
+
 %start Program
 
-%{
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include "y.tab.h"
-    void yyerror(char *);
-    int yylex(void);
-    extern char* yytext;
-%}
+%left ADD_OP SUB_OP
+%left MUL_OP DIV_OP
 
+// %nonassoc Negation
 %%
 
 Program: PROG_INIT Block PROG_END
-      |
 ;
 
 Block  : Statements Block
-      | error Block
-      |
+      | Statements
 ;
 
 Statements: Stmt
@@ -73,20 +76,42 @@ Stmt  : Function
       | Other
 ;
 
-Other : FunctionCall Semicolon
+Other : FunctionCall
       | While
-      | If
-      | Assignment Semicolon
-      | Definition Semicolon
+      | Conditional
+      | Assignment
+      | Declaration
+      | RelationStatement
       | Std
 ;
 
-Definition : ;
+Declaration: TypeModifier Type IDENTIFIER Semicolon
+;
 
-Assignment : ;
+Assignment : TypeModifier Type IDENTIFIER ASSIGN_OP AssignmentTail
+            | TypeModifier Type TRUTH_VAL ASSIGN_OP AssignmentTail
+          | IDENTIFIER ASSIGN_OP AssignmentTail
+          | TRUTH_VAL ASSIGN_OP AssignmentTail
+;
 
-FunctionCall : 
+TypeModifier : CONST_IDENTIFIER
+;
 
+AssignmentTail:  LogicExpr
+              |  LEQExpr
+              |  ArithmeticExpression
+              ;
+
+FunctionCall : IDENTIFIER '(' CallParameterList ')' Semicolon
+;
+
+CallParameterList : CallParameterList ',' CallParameter
+                  | CallParameter
+;
+
+CallParameter: IDENTIFIER
+              | Value
+              | TRUTH_VAL
 ;
 
 Semicolon : ';'
@@ -99,24 +124,29 @@ Std: STDIN_OP IDENTIFIER '+' Value
     | STDOUT_OP Value
 ;
 
+RelationStatement: RELATION_TYPE IDENTIFIER ASSIGN_OP '[' Value ':' Value ']' Semicolon
+;
+
 CompoundProposition: CompoundProposition Connective CompoundProposition
 | Negation CompoundProposition 
 | Proposition
-| BOOLEAN 
 | '(' CompoundProposition ')'
 ;
-
-Proposition: IDENTIFIER
-            | TRUTH_VAL
+Proposition: TRUTH_VAL
+            | BOOLEAN
 ;
 
-IfStatement: IF_CLAUSE LogicExpr '{' Statements '}'
-| IF_CLAUSE LogicExpr '{' Statements '}' ELSE '{' Statements '}'
+Conditional: IF_CLAUSE LogicExpr '{' Statements '}'
+| IF_CLAUSE LogicExpr '{' Statements '}' ELSE_CLAUSE '{' Statements '}'
 ;
 
-LogicExpr: CompoundProposition ComparisonOperator CompoundProposition
+LogicExpr: LogicExpr ComparisonOperator CompoundProposition
       | CompoundProposition
 ;
+
+LEQExpr : LEQExpr LogicOperator NumericType
+      | BOOLEAN
+      ;
 
 Pred: PRED IDENTIFIER '(' ParameterList ')' '{' Statements '}'
 
@@ -131,10 +161,13 @@ Parameter : IDENTIFIER ':' Type
             |
 ;
 
-WhileStatement: WHILE_STMT LogicExpr '{' Statements '}' ;
+While: WHILE_STMT LogicExpr '{' Statements '}' ;
 
 Negation : NOT_OP
-         |
+;
+
+ArithmeticExpression : NumericType ArithmeticOperator NumericType
+                      | '(' ArithmeticExpression ')'
 ;
 
 ArithmeticOperator  : ADD_OP
@@ -167,10 +200,12 @@ Connective : AND_OP
 Type: NumericType
       | STRING_TYPE
       | TRUTH_TYPE
+      | RELATION_TYPE
 ;
 
 NumericType: INTEGER_TYPE
       | FLOAT_TYPE
+      |
 ;
 
 Value: INTEGER
@@ -184,12 +219,3 @@ Value: INTEGER
 void yyerror(char *s) {
  fprintf(stderr, "%s at %s\n", s,yytext);
 }
-
-int main(void){
- yyparse();
-  if(yynerrs < 1){
-	  printf("Program has been parsed successfully!\n");
-	}
- return 0;
-}
-

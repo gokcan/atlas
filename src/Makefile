@@ -17,26 +17,29 @@
 # 	rm -f lexer.yy.c
 # 	rm -f atlas
 
-CC     = g++
-CXX    = g++
-LEX    = flex
-YACC   = bison -y
+CC     = gcc
+CXX    = gcc
+LEX    = lex
+YACC   = yacc
 YFLAGS = -d
 PROGRAM = atlas
 
 OBJECTS = definition.o parser.o $(PROGRAM).o
 
-all: atlas
+all: $(PROGRAM)
 
-atlas: $(OBJECTS)
-scan.o: definition.l parser.c
-parse.o: parser.y
+$(PROGRAM): $(OBJECTS)
+definition.o: definition.l parser.c
+parser.o: parser.y
 $(PROGRAM).o: $(PROGRAM).c
 
+test: input.atlas
+	cat input.atlas | ./$(PROGRAM)
 
 clean:
 	-rm -f $(OBJECTS)
 	-rm -f y.tab.h
-	-rm -f parse.c
-	-rm -f scan.c
+	-rm -f y.tab.c
+	-rm -f parser.c
+	-rm -f definition.c
 	-rm -f $(PROGRAM)
